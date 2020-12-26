@@ -7,14 +7,16 @@ This little project evaluate the performance difference between a function retur
     goos: linux
     goarch: amd64
     pkg: github.com/chingkamhing/return-structures
-    BenchmarkArrayStruct10-4          	  396708	     29688 ns/op	    3136 B/op	      71 allocs/op
-    BenchmarkArrayStruct20-4          	  201219	     59928 ns/op	    6272 B/op	     141 allocs/op
-    BenchmarkArrayStruct50-4          	   81172	    148755 ns/op	   16066 B/op	     351 allocs/op
-    BenchmarkArrayPointerStruct10-4   	  389179	     30171 ns/op	    3384 B/op	      76 allocs/op
-    BenchmarkArrayPointerStruct20-4   	  197635	     60313 ns/op	    6776 B/op	     147 allocs/op
-    BenchmarkArrayPointerStruct50-4   	   70917	    148476 ns/op	   17082 B/op	     358 allocs/op
+    BenchmarkArrayStruct1-4           	 3890893	      3107 ns/op	     320 B/op	       8 allocs/op
+    BenchmarkArrayStruct10-4          	  400992	     29599 ns/op	    3136 B/op	      71 allocs/op
+    BenchmarkArrayStruct20-4          	  201361	     60596 ns/op	    6272 B/op	     141 allocs/op
+    BenchmarkArrayStruct50-4          	   80115	    156941 ns/op	   16066 B/op	     351 allocs/op
+    BenchmarkArrayPointerStruct1-4    	 3784086	      3180 ns/op	     328 B/op	       9 allocs/op
+    BenchmarkArrayPointerStruct10-4   	  395434	     30279 ns/op	    3384 B/op	      76 allocs/op
+    BenchmarkArrayPointerStruct20-4   	  198122	     61174 ns/op	    6776 B/op	     147 allocs/op
+    BenchmarkArrayPointerStruct50-4   	   79572	    149561 ns/op	   17082 B/op	     358 allocs/op
     PASS
-    ok  	github.com/chingkamhing/return-structures	75.157s
+    ok  	github.com/chingkamhing/return-structures	107.967s
     ```
 
 ## How to run the load test
@@ -24,38 +26,38 @@ This little project evaluate the performance difference between a function retur
     ```console
     bombardier -c 125 -n 10000000 -l http://localhost:8888/users-structure
     Bombarding http://localhost:8888/users-structure with 10000000 request(s) using 125 connection(s)
-    10000000 / 10000000 [=====================================================================================================] 100.00% 18109/s 9m12s
+    10000000 / 10000000 [=====================================================================================================] 100.00% 18541/s 8m59s
     Done!
     Statistics        Avg      Stdev        Max
-    Reqs/sec     18120.02    2893.94   27726.02
-    Latency        6.90ms     3.10ms   199.13ms
+    Reqs/sec     18553.72    2070.39   26958.62
+    Latency        6.74ms     2.59ms   178.18ms
     Latency Distribution
-        50%     3.89ms
-        75%     9.47ms
-        90%    17.66ms
-        95%    24.10ms
-        99%    38.62ms
+        50%     3.79ms
+        75%     9.30ms
+        90%    17.42ms
+        95%    23.72ms
+        99%    37.07ms
     HTTP codes:
         1xx - 0, 2xx - 10000000, 3xx - 0, 4xx - 0, 5xx - 0
         others - 0
-    Throughput:    30.13MB/s
+    Throughput:    30.85MB/s
     bombardier -c 125 -n 10000000 -l http://localhost:8888/users-pointer-structure
     Bombarding http://localhost:8888/users-pointer-structure with 10000000 request(s) using 125 connection(s)
-    10000000 / 10000000 [======================================================================================================] 100.00% 18383/s 9m3s
+    10000000 / 10000000 [=====================================================================================================] 100.00% 18098/s 9m12s
     Done!
     Statistics        Avg      Stdev        Max
-    Reqs/sec     18393.85    1952.82   26212.29
-    Latency        6.80ms     2.58ms   170.52ms
+    Reqs/sec     18109.22    2272.68   26363.56
+    Latency        6.90ms     2.83ms   212.26ms
     Latency Distribution
-        50%     3.85ms
-        75%     9.46ms
-        90%    17.52ms
-        95%    23.90ms
-        99%    36.68ms
+        50%     3.80ms
+        75%     9.52ms
+        90%    17.94ms
+        95%    24.66ms
+        99%    38.06ms
     HTTP codes:
         1xx - 0, 2xx - 10000000, 3xx - 0, 4xx - 0, 5xx - 0
         others - 0
-    Throughput:    30.72MB/s
+    Throughput:    30.25MB/s
     ```
 
 ## Conclusion
