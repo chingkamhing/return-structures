@@ -3,54 +3,59 @@ This little project evaluate the performance difference between a function retur
 ## How to run the benchmark
 * invoke "make benchmark" to run the benchmark
     ```console
-    go test -bench=.
+    go test -benchtime=10s -bench=.
     goos: linux
     goarch: amd64
-    pkg: github.com/chingkamhing/test/return-structures
-    BenchmarkArrayStruct-4                     35564             31852 ns/op            3984 B/op         35 allocs/op
-    BenchmarkArrayPointerStruct-4              35866             32691 ns/op            4488 B/op         41 allocs/op
+    pkg: github.com/chingkamhing/return-structures
+    BenchmarkArrayStruct10-4          	  396708	     29688 ns/op	    3136 B/op	      71 allocs/op
+    BenchmarkArrayStruct20-4          	  201219	     59928 ns/op	    6272 B/op	     141 allocs/op
+    BenchmarkArrayStruct50-4          	   81172	    148755 ns/op	   16066 B/op	     351 allocs/op
+    BenchmarkArrayPointerStruct10-4   	  389179	     30171 ns/op	    3384 B/op	      76 allocs/op
+    BenchmarkArrayPointerStruct20-4   	  197635	     60313 ns/op	    6776 B/op	     147 allocs/op
+    BenchmarkArrayPointerStruct50-4   	   70917	    148476 ns/op	   17082 B/op	     358 allocs/op
     PASS
-    ok      github.com/chingkamhing/test/return-structures  2.999s
+    ok  	github.com/chingkamhing/return-structures	75.157s
     ```
 
 ## How to run the load test
-* invoke "./return-structures" to run the server
+* invoke "go get -u github.com/codesenberg/bombardier" to install [bombardier](https://github.com/codesenberg/bombardier)
+* invoke "./return-structures -count 20" to run the server
 * invoke "make load" to perform the load test
     ```console
-    kamching@kamching-Aspire-E5-571G:~$ bombardier -c 125 -n 10000000 -l http://localhost:8888/users1
-    Bombarding http://localhost:8888/users1 with 10000000 request(s) using 125 connection(s)
-    10000000 / 10000000 [======================================================================================================] 100.00% 27365/s 6m5s
+    bombardier -c 125 -n 10000000 -l http://localhost:8888/users-structure
+    Bombarding http://localhost:8888/users-structure with 10000000 request(s) using 125 connection(s)
+    10000000 / 10000000 [=====================================================================================================] 100.00% 18109/s 9m12s
     Done!
     Statistics        Avg      Stdev        Max
-    Reqs/sec     27371.57    1907.01   41466.18
-    Latency        4.56ms     1.35ms    75.61ms
+    Reqs/sec     18120.02    2893.94   27726.02
+    Latency        6.90ms     3.10ms   199.13ms
     Latency Distribution
-        50%     2.91ms
-        75%     6.38ms
-        90%    11.28ms
-        95%    14.91ms
-        99%    23.26ms
+        50%     3.89ms
+        75%     9.47ms
+        90%    17.66ms
+        95%    24.10ms
+        99%    38.62ms
     HTTP codes:
         1xx - 0, 2xx - 10000000, 3xx - 0, 4xx - 0, 5xx - 0
         others - 0
-    Throughput:    37.04MB/s
-    kamching@kamching-Aspire-E5-571G:~$ bombardier -c 125 -n 10000000 -l http://localhost:8888/users2
-    Bombarding http://localhost:8888/users2 with 10000000 request(s) using 125 connection(s)
-    10000000 / 10000000 [=====================================================================================================] 100.00% 25997/s 6m24s
+    Throughput:    30.13MB/s
+    bombardier -c 125 -n 10000000 -l http://localhost:8888/users-pointer-structure
+    Bombarding http://localhost:8888/users-pointer-structure with 10000000 request(s) using 125 connection(s)
+    10000000 / 10000000 [======================================================================================================] 100.00% 18383/s 9m3s
     Done!
     Statistics        Avg      Stdev        Max
-    Reqs/sec     26006.63    3839.56   37901.93
-    Latency        4.80ms     1.86ms   153.43ms
+    Reqs/sec     18393.85    1952.82   26212.29
+    Latency        6.80ms     2.58ms   170.52ms
     Latency Distribution
-        50%     2.93ms
-        75%     6.59ms
-        90%    11.98ms
-        95%    16.01ms
-        99%    25.86ms
+        50%     3.85ms
+        75%     9.46ms
+        90%    17.52ms
+        95%    23.90ms
+        99%    36.68ms
     HTTP codes:
         1xx - 0, 2xx - 10000000, 3xx - 0, 4xx - 0, 5xx - 0
         others - 0
-    Throughput:    35.19MB/s
+    Throughput:    30.72MB/s
     ```
 
 ## Conclusion

@@ -4,7 +4,7 @@ build:
 
 .PHONY: benchmark
 benchmark:
-	go test -bench=.
+	go test -benchtime=10s -bench=.
 
 .PHONY: profile
 profile:
@@ -13,8 +13,8 @@ profile:
 
 .PHONY: load
 load:
-	bombardier -c 125 -n 10000000 -l http://localhost:8888/users1
-	bombardier -c 125 -n 10000000 -l http://localhost:8888/users2
+	bombardier -c 125 -n 10000000 -l http://localhost:8888/users-structure
+	bombardier -c 125 -n 10000000 -l http://localhost:8888/users-pointer-structure
 
 .PHONY: clean
 clean:

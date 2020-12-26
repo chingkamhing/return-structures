@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func users1(w http.ResponseWriter, req *http.Request) {
-	users, err := getUsers1()
+func usersStruct(w http.ResponseWriter, req *http.Request) {
+	users, err := getUsersStruct(numStructs)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -17,8 +17,8 @@ func users1(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func users2(w http.ResponseWriter, req *http.Request) {
-	users, err := getUsers2()
+func usersPointerStruct(w http.ResponseWriter, req *http.Request) {
+	users, err := getUsersPointerStruct(numStructs)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
